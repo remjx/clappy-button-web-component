@@ -102,7 +102,7 @@ Please feel free to open [issues](https://github.com/remjx/clappy-button-web-com
 
 ## License
 
-Distributed under the ??? License. See `LICENSE.txt` for more information.
+Distributed under the [TBD] License. See `LICENSE.txt` for more information.
 
 
 ## Maintainers
@@ -110,3 +110,11 @@ Distributed under the ??? License. See `LICENSE.txt` for more information.
 remjx - [twitter](https://twitter.com/remjxd) | [website](https://remjx.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Donations
+
+https://coindrop.to/clappy-button
+
+## Follow Us
+
+[Twitter](https://twitter.com/clappybutton)
