@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Clappy Button Web Component</title>
+	<script defer src="bundle.js"></script>
+	<script>
+		async function sendPayment() {
+			const demoResult = 'success';
+			try {
+				const result = await new Promise((resolve, reject) => {
+					setTimeout(demoResult === 'success' ? resolve : demoResult === 'fail' ? reject : null, 2000)
+				})
+				window.postMessage({ app: 'clappy-button', event: 'success', instanceId: 'cb1' })
+			} catch (err) {
+				window.postMessage({ app: 'clappy-button', event: 'fail', instanceId: 'cb1' })
+			}
+		}
+		window.addEventListener('message', async function (event) {
+			if (event.data.app === 'clappy-button' && event.data.event === 'authorize' && event.data.instanceId === 'cb1') {
+				sendPayment()
+			}
+		})
+		window.addEventListener("submit", (event) => {
+			event.preventDefault();
+			const clappyButton = document.getElementsByTagName("clappy-button")[0]
+			const formData = new FormData(event.target)
+			const formDataEntries = Object.fromEntries(formData);
+			let customTheme = {};
+			for (const entry in formDataEntries) {
+				clappyButton.setAttribute(entry, formDataEntries[entry])
+			}
+		});
+		let theme = "light"
+		function themeToggle() {
+			theme = theme === 'light' ? 'dark' : 'light'
+			const clappyButton = document.getElementsByTagName("clappy-button")[0]
+			console.log('toggling to theme', theme)
+			clappyButton.setAttribute("theme", theme)
+			document.getElementById("button-container").setAttribute("style", "background-color: " + (theme === 'light' ? 'white' : 'black'))
+		}
+	</script>
+	<style>
+		#minimum-space-above {
+			height: 75px;
+		}
+	</style>
+</head>
+
+<body>
+	<button id="theme-toggle" onclick="themeToggle()">Toggle Theme</button>
+	<div id="button-container">
+		<div id="minimum-space-above"></div>
+		<clappy-button instanceid="cb1" currencycode="USD" currencysymbol="$" amountperclap="0.01"
+			theme="light"></clappy-button>
+	</div>
+</body>
+
+</html>

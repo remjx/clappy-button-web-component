@@ -1,0 +1,12 @@
+{
+	"extends": "@tsconfig/svelte/tsconfig.json",
+	"include": ["src/**/*"],
+	"exclude": ["node_modules/*"],
+	"compilerOptions": {
+		"types": ["@types/jest"],
+		"composite": true,
+		"outDir": "dist",
+		"lib": ["DOM", "ESNext"],
+		"esModuleInterop": true
+	},
+}
