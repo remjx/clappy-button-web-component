@@ -59,7 +59,7 @@ Outbound message events:
 ```jsx
 
 import { useEffect } from 'react'
-import '@remjx/clappy-button-wc'
+import '@remjx/clappy-button-wc' // NOTE: package name not finalized yet.
 
 function App() {
 
@@ -119,7 +119,7 @@ Custom theme can be specified using css:
 
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+MIT License. See [`LICENSE.md`](https://github.com/remjx/clappy-button-web-component/blob/main/LICENSE.md) for more information.
 
 ## Maintainers
 
@@ -128,10 +128,8 @@ remjx - [twitter](https://twitter.com/remjxd) | [website](https://remjx.com)
 
 ## Donations
 
-https://coindrop.to/clappy-button
+[coindrop.to/clappy-button](https://coindrop.to/clappy-button) << Also built by remjx :)
 
-## Follow Us
+## Follow Clappy Button
 
-[Twitter](https://twitter.com/clappybutton)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+[Twitter @clappybutton](https://twitter.com/clappybutton)
