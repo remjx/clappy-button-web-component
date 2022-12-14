@@ -457,8 +457,8 @@
 	}
 
 	function loopedClick() {
+		clap();
 		mouseDownCallback = gsap.delayedCall(0.4, () => {
-			clap();
 			loopedClick();
 		});
 	}
@@ -501,7 +501,6 @@
 		class="prevent-blue-highlight"
 		bind:this={tipBtn}
 		style={`cursor: ${canClap ? 'pointer' : 'none'};`}
-		on:click={clap}
 		on:mousedown={handleMouseDown}
 		on:mouseup={resetLoopedClick}
 		on:mouseleave={resetLoopedClick}
