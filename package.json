@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"description": "The \"Like\" button, Evolved.",
 	"repository": "https://github.com/remjx/clappy-button",
-	"license": "TBD",
+	"license": "MIT",
 	"main": "dist/bundle.js",
 	"browserslist": [
 		"defaults"
