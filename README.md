@@ -4,32 +4,95 @@
 <div align="center">
   <img src="https://clappy-button-web-component.s3.amazonaws.com/github-readme-images/logo-1189px-322px-v1.png" alt="Clappy Button Logo" width="400"></img>
   <p align="center">
-    The Like button evolved. Made for Bitcoin.
+    The Like button evolved.
   </p>
   <br />
   <img src="https://clappy-button-web-component.s3.amazonaws.com/github-readme-images/light-mode-1-x-10-cent-demo.gif" alt="Demo" width="96" height="187"></img>
-  <br />
-  <a href="https://github.com/github_username/repo_name">🔗 Interactive Demo</a>
+  <!-- <br /> -->
+  <!-- <a href="https://github.com/github_username/repo_name">🔗 Interactive Demo</a> -->
 </div>
 
-## Features
+## Introduction
 
-- 100% free and open-source
-- TBD License
-- Themable (use the built-in Light and Dark themes, or create your own)
+Clappy Button is a [web component](https://developer.mozilla.org/en-US/docs/Web/Web_Components) that can be embedded on any web page that supports JavaScript.
 
-### Coming soon
+## API
 
-- Wallet plugins
+`<clappy-button>` accepts the following attributes:
 
-## Usage
+- `instanceid` - Unique identifier to distinguish between multiple clappy buttons on the same page e.g. `post-1`
+- `amountperclap` - Each time user claps, total amount will be incremented by this value e.g. `"0.01"`
+- `currencycode` - Currency code e.g. `"USD"`
+- `currencysymbol` - Currency symbol e.g. `"$"`
+- `theme` - `"light"` or `"dark"`. Alternatively, leave this blank and specify a custom theme (see Custom)
 
-### Color Theming
+Example:
 
-Pre-built `theme`s:
+```html
+<script src="[to be uploaded]/clappy-button.js"></script>
 
-- `light`
-- `dark`
+<clappy-button
+  instanceid="post-id-1"
+  amountperclap="0.01"
+  currencycode="USD"
+  currencySymbol="$"
+  theme="light"
+>
+```
+
+> Attributes are case sensitive and must be defined in all lowercase i.e. `instanceid` is valid but `instanceId` is invalid.
+
+Interactions between your app and Clappy Button must be made via [window message events](https://developer.mozilla.org/en-US/docs/Web/API/Window/message_event).
+
+Incoming message events:
+  - `clap` - sent after each clap with `instanceId` and `amount`
+  - `loading` - sent when loading animation starts with `instanceId` and `amount`
+
+Outbound message events:
+  - `success` - triggers success animation
+  - `fail` - triggers fail animation
+
+## Examples
+
+### React
+
+```jsx
+
+import { useEffect } from 'react'
+import '@remjx/clappy-button-wc'
+
+function App() {
+
+  async function confirmPayment() {
+    confirm()
+      .then(result => {
+        window.postMessage({ app: 'clappy-button', event: 'success', instanceId: 'cb1' })
+      })
+      .catch(error => {
+        window.postMessage({ app: 'clappy-button', event: 'fail', instanceId: 'cb1' })
+      })
+  }
+
+  function handleWindowMessage(message) {
+    if (message.data.app === 'clappy-button' && message.data.event === 'loading' && message.data.instanceId === 'cb1') {
+      confirmPayment()
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("message", handleWindowMessage);
+    return () => window.removeEventListener('message', handleWindowMessage);
+  }, [])
+  
+  return (
+    <div style={{ marginTop: '75px' }}>
+      <clappy-button instanceid="cb1" currencycode="USD" currencysymbol="$" amountperclap="0.01" theme="light"></clappy-button>
+    </div>
+  );
+}
+
+```
+
+### Custom Theme
 
 Custom theme can be specified using css:
 
@@ -49,67 +112,19 @@ Custom theme can be specified using css:
   }
 ```
 
-### React
-
-```
-
-import { useEffect } from 'react'
-import '@remjx/clappy-button-wc'
-
-function App() {
-
-  function handleMessage(message) {
-    if (message.data.app === 'clappy-button' && message.data.event === 'loading' && message.data.instanceId === 'cb1') {
-      sendPayment()
-    }
-  };
-
-  async function sendPayment() {
-    const demoResult = 'fail'
-    try {
-      const result = await new Promise((resolve, reject) => {
-        setTimeout(demoResult === 'success' ? resolve : demoResult === 'fail' ? reject : null, 2000)
-      })
-      window.postMessage({ app: 'clappy-button', event: 'success', instanceId: 'cb1' }) // TODO: move this to helper function / api "result: success"
-    } catch (err) {
-      window.postMessage({ app: 'clappy-button', event: 'fail', instanceId: 'cb1' }) // TODO: move this to helper function / api "result: success"
-    }
-  }
-
-  useEffect(() => {
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, [])
-  
-  return (
-    <div className="App" on>
-        <div style={{ marginTop: '75px' }}>
-          <clappy-button instanceid="cb1" currencycode="USD" currencysymbol="$" amountperclap="0.01" theme="light"></clappy-button>
-        </div>
-    </div>
-  );
-}
-
-```
-
-...
-
-
 ## Contribute
 
-Please feel free to open [issues](https://github.com/remjx/clappy-button-web-component/issues) and [pull requests](https://github.com/remjx/clappy-button-web-component/pulls).
+[Feature requests](https://github.com/remjx/clappy-button-web-component/issues/new), [issues](https://github.com/remjx/clappy-button-web-component/issues) and [pull requests](https://github.com/remjx/clappy-button-web-component/pulls) are welcome!
 
 
 ## License
 
-Distributed under the [TBD] License. See `LICENSE.txt` for more information.
-
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Maintainers
 
 remjx - [twitter](https://twitter.com/remjxd) | [website](https://remjx.com)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Donations
 
@@ -118,3 +133,5 @@ https://coindrop.to/clappy-button
 ## Follow Us
 
 [Twitter](https://twitter.com/clappybutton)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>

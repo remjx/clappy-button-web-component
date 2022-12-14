@@ -19,6 +19,7 @@
 		eventData: { amount: number };
 	} | {
 		event: 'clap';
+		eventData: { amount: number };
 	});
 
 	type ReceiveMessage = Message & {
@@ -432,11 +433,13 @@
 			amount += parsedAmountPerClap;
 			window.navigator.vibrate && window.navigator.vibrate(10);
 			clapAnimation();
-			console.log('posting clap message')
 			postMessage({
 				app: 'clappy-button',
 				event: 'clap',
 				instanceId: instanceid,
+				eventData: {
+					amount: amount,
+				}
 			});
 		}
 	}

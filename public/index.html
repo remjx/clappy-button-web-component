@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="utf8" />
 	<meta name="viewport" content="width=device-width" />
@@ -8,37 +7,22 @@
 	<script defer src="bundle.js"></script>
 	<script>
 		async function sendPayment(amount) {
-				console.log('amount', amount)
 			let demoResult = 'success';
 			try {
 				const result = await new Promise((resolve, reject) => {
-					setTimeout(demoResult === 'success' ? resolve : demoResult === 'fail' ? reject : null, 500)
+					setTimeout(demoResult === 'success' ? resolve : demoResult === 'fail' ? reject : null, 2000)
 				})
-				console.log('posting success')
 				window.postMessage({ app: 'clappy-button', event: 'success', instanceId: 'cb1' })
 			} catch (err) {
 				window.postMessage({ app: 'clappy-button', event: 'fail', instanceId: 'cb1' })
 			}
 		}
-		window.addEventListener('message', async function (event) {
-			console.log('message received')
-			if (event.data.app === 'clappy-button' && event.data.instanceId === 'cb1') {
-				if (event.data.event === 'loading' && event.data.eventData.amount) {
-
-					sendPayment(event.data.eventData.amount)
-				} else if (event.data.event === 'clap') {
-					console.log('clap message received')
+		window.addEventListener('message', async function (messageEvent) {
+			if (messageEvent.data.app === 'clappy-button' && messageEvent.data.instanceId === 'cb1') {
+				if (messageEvent.data.event === 'loading' && messageEvent.data.eventData.amount) {
+					sendPayment(messageEvent.data.eventData.amount)
+				} else if (messageEvent.data.event === 'clap') {
 				}
-			}
-		});
-		window.addEventListener("submit", (event) => {
-			event.preventDefault();
-			const clappyButton = document.getElementsByTagName("clappy-button")[0]
-			const formData = new FormData(event.target)
-			const formDataEntries = Object.fromEntries(formData);
-			let customTheme = {};
-			for (const entry in formDataEntries) {
-				clappyButton.setAttribute(entry, formDataEntries[entry])
 			}
 		});
 		let theme = "light"
@@ -50,7 +34,7 @@
 		}
 	</script>
 	<style>
-		#minimum-space-above {
+		.space-above-for-animation {
 			height: 75px;
 		}
 	</style>
@@ -59,7 +43,7 @@
 <body>
 	<button id="theme-toggle" onclick="themeToggle()">Toggle Theme</button>
 	<div id="button-container">
-		<div id="minimum-space-above"></div>
+		<div class="space-above-for-animation"></div>
 		<clappy-button instanceid="cb1" currencycode="USD" currencysymbol="$" amountperclap="0.01"
 			theme="light"></clappy-button>
 	</div>
