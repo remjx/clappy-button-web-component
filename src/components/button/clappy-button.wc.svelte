@@ -8,7 +8,6 @@
 	import HandNoisePaths from '../../assets/svg/hand-noise.svelte';
 	import Confetti from '../../assets/svg/confetti.svelte';
 
-	// TODO: Export types
 	type Message = {
 		app: 'clappy-button';
 		instanceId: string;

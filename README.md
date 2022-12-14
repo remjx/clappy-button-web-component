@@ -22,9 +22,10 @@ Clappy Button is a [web component](https://developer.mozilla.org/en-US/docs/Web/
 
 - `instanceid` - Unique identifier to distinguish between multiple clappy buttons on the same page e.g. `post-1`
 - `amountperclap` - Each time user claps, total amount will be incremented by this value e.g. `"0.01"`
-- `currencycode` - Currency code e.g. `"USD"`
-- `currencysymbol` - Currency symbol e.g. `"$"`
-- `theme` - `"light"` or `"dark"`. Alternatively, leave this blank and specify a custom theme (see Custom)
+- `currencycode` or `currencysymbol`
+  - If `currencycode` is specified, it will be used as a suffix in the amount e.g. 1 USD
+  - If `currencysymbol` is specified, it will be used as a prefix in the amount e.g. $1
+- `theme` - `"light"` or `"dark"`. Alternatively, leave `theme` undefined and specify a custom theme (see below)
 
 Example:
 
@@ -40,15 +41,15 @@ Example:
 >
 ```
 
-> Attributes are case sensitive and must be defined in all lowercase i.e. `instanceid` is valid but `instanceId` is invalid.
+> Note: attributes are case sensitive and must be defined in all lowercase i.e. `instanceid` is valid, `instanceId` is invalid.
 
 Interactions between your app and Clappy Button must be made via [window message events](https://developer.mozilla.org/en-US/docs/Web/API/Window/message_event).
 
-Incoming message events:
+Message Events emitted from Clappy Button:
   - `clap` - sent after each clap with `instanceId` and `amount`
   - `loading` - sent when loading animation starts with `instanceId` and `amount`
 
-Outbound message events:
+Message Events to emit in your app to control Clappy Button:
   - `success` - triggers success animation
   - `fail` - triggers fail animation
 
