@@ -14,10 +14,12 @@
 		instanceId: string;
 	}
 
-	type PostMessage = Message & {
-		event: 'authorize';
+	type PostMessage = Message & ({
+		event: 'loading';
 		eventData: { amount: number };
-	};
+	} | {
+		event: 'clap';
+	});
 
 	type ReceiveMessage = Message & {
 		event: 'success' | 'fail'
@@ -430,6 +432,12 @@
 			amount += parsedAmountPerClap;
 			window.navigator.vibrate && window.navigator.vibrate(10);
 			clapAnimation();
+			console.log('posting clap message')
+			postMessage({
+				app: 'clappy-button',
+				event: 'clap',
+				instanceId: instanceid,
+			});
 		}
 	}
 
@@ -437,7 +445,7 @@
 		startLoadingAnimation();
 		postMessage({
 			app: 'clappy-button',
-			event: 'authorize',
+			event: 'loading',
 			instanceId: instanceid,
 			eventData: {
 				amount: amount,

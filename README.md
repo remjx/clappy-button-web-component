@@ -59,7 +59,7 @@ import '@remjx/clappy-button-wc'
 function App() {
 
   function handleMessage(message) {
-    if (message.data.app === 'clappy-button' && message.data.event === 'authorize' && message.data.instanceId === 'cb1') {
+    if (message.data.app === 'clappy-button' && message.data.event === 'loading' && message.data.instanceId === 'cb1') {
       sendPayment()
     }
   };

@@ -7,22 +7,30 @@
 	<title>Clappy Button Web Component</title>
 	<script defer src="bundle.js"></script>
 	<script>
-		async function sendPayment() {
-			const demoResult = 'success';
+		async function sendPayment(amount) {
+				console.log('amount', amount)
+			let demoResult = 'success';
 			try {
 				const result = await new Promise((resolve, reject) => {
-					setTimeout(demoResult === 'success' ? resolve : demoResult === 'fail' ? reject : null, 2000)
+					setTimeout(demoResult === 'success' ? resolve : demoResult === 'fail' ? reject : null, 500)
 				})
+				console.log('posting success')
 				window.postMessage({ app: 'clappy-button', event: 'success', instanceId: 'cb1' })
 			} catch (err) {
 				window.postMessage({ app: 'clappy-button', event: 'fail', instanceId: 'cb1' })
 			}
 		}
 		window.addEventListener('message', async function (event) {
-			if (event.data.app === 'clappy-button' && event.data.event === 'authorize' && event.data.instanceId === 'cb1') {
-				sendPayment()
+			console.log('message received')
+			if (event.data.app === 'clappy-button' && event.data.instanceId === 'cb1') {
+				if (event.data.event === 'loading' && event.data.eventData.amount) {
+
+					sendPayment(event.data.eventData.amount)
+				} else if (event.data.event === 'clap') {
+					console.log('clap message received')
+				}
 			}
-		})
+		});
 		window.addEventListener("submit", (event) => {
 			event.preventDefault();
 			const clappyButton = document.getElementsByTagName("clappy-button")[0]
@@ -37,7 +45,6 @@
 		function themeToggle() {
 			theme = theme === 'light' ? 'dark' : 'light'
 			const clappyButton = document.getElementsByTagName("clappy-button")[0]
-			console.log('toggling to theme', theme)
 			clappyButton.setAttribute("theme", theme)
 			document.getElementById("button-container").setAttribute("style", "background-color: " + (theme === 'light' ? 'white' : 'black'))
 		}
