@@ -29,7 +29,8 @@
 	export let amountperclap: string;
 	export let currencycode: string;
 	export let currencysymbol: string;
-	export let theme: string | undefined;
+	export let theme: string = "light";
+	export let debouncedur = 2.5;
 	let parsedAmountPerClap: number;
 	$: parsedAmountPerClap = Number(amountperclap);
 
@@ -39,7 +40,7 @@
 	const handDur = 0.5;
 	const loaderDur = 5.5;
 	const loaderSegDur = (loaderDur / 12) * 0.75;
-	const debounceDur = 2;
+	
 	const wiggleEase: gsap.EaseFunction = (x) =>
 		(-0.031 / (-0.3 + x)) * Math.sin((3.1418 / 0.1) * x); // https://www.desmos.com/calculator/dymuryumyw
 	gsap.registerEase('wiggle', wiggleEase);
@@ -139,7 +140,7 @@
 	function initializeCounterAnimation() {
 		const tipAppearDur = 0.2;
 		const tipDisappearDur = 0.4;
-		const tipDisappearStart = debounceDur - tipDisappearDur / 2;
+		const tipDisappearStart = debouncedur - tipDisappearDur / 2;
 		gsap.set(tipCountContainer, { opacity: 1 });
 		counterTLMovement
 			.from(tipCountContainer, {
@@ -496,7 +497,7 @@
 		id="tipBtn"
 		title={amountperclap && currencycode
 			? `${amountperclap} ${currencycode} per clap`
-			: undefined}
+			: `${currencysymbol}${amountperclap} per clap`}
 		class="prevent-blue-highlight"
 		bind:this={tipBtn}
 		style={`cursor: ${canClap ? 'pointer' : 'none'};`}

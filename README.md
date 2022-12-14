@@ -14,53 +14,56 @@
 
 ## Introduction
 
-Clappy Button is a [web component](https://developer.mozilla.org/en-US/docs/Web/Web_Components) that can be embedded on any web page that supports JavaScript.
+Clappy Button is a [web component](https://developer.mozilla.org/en-US/docs/Web/Web_Components) that can be embedded on any web page that supports JavaScript and HTML.
+
 
 ## API
 
-`<clappy-button>` accepts the following attributes:
+### Parameters
 
-- `instanceid` - Unique identifier to distinguish between multiple clappy buttons on the same page e.g. `post-1`
+`<clappy-button>` accepts the following parameters as HTML attributes:
+
 - `amountperclap` - Each time user claps, total amount will be incremented by this value e.g. `"0.01"`
-- `currencycode` or `currencysymbol`
-  - If `currencycode` is specified, it will be used as a suffix in the amount e.g. 1 USD
-  - If `currencysymbol` is specified, it will be used as a prefix in the amount e.g. $1
-- `theme` - `"light"` or `"dark"`. Alternatively, leave `theme` undefined and specify a custom theme (see below)
+- `currencycode` / `currencysymbol`
+  - if `currencycode` is specified, it will be used as a suffix in the amount e.g. 1 USD
+  - if `currencysymbol` is specified, it will be used as a prefix in the amount e.g. $1
+- `theme` - `"light"` and `"dark"` are the current built-in themes, or you can create your own (see below)
+- `instanceid` - Unique identifier if there are multiple clappy buttons on the same page e.g. `post-id-1`
 
 Example:
 
 ```html
-<script src="[to be uploaded]/clappy-button.js"></script>
-
 <clappy-button
-  instanceid="post-id-1"
   amountperclap="0.01"
   currencycode="USD"
   currencySymbol="$"
   theme="light"
+  instanceid="post-id-1"
 >
 ```
 
-> Note: attributes are case sensitive and must be defined in all lowercase i.e. `instanceid` is valid, `instanceId` is invalid.
+> Note: attributes are case sensitive and must be defined in all lowercase e.g. `instanceid` is valid, `instanceId` is invalid.
 
-Interactions between your app and Clappy Button must be made via [window message events](https://developer.mozilla.org/en-US/docs/Web/API/Window/message_event).
+### Events
 
-Message Events emitted from Clappy Button:
-  - `clap` - sent after each clap with `instanceId` and `amount`
-  - `loading` - sent when loading animation starts with `instanceId` and `amount`
+Communication between your app and Clappy Button is made via [Window message events](https://developer.mozilla.org/en-US/docs/Web/API/Window/message_event).
 
-Message Events to emit in your app to control Clappy Button:
+Window Message Events emitted from Clappy Button to [listen for in your app](https://developer.mozilla.org/en-US/docs/Web/API/Window/message_event):
+  - `clap` - sent with each clap. `eventData` includes with `instanceId` and `amount`. 
+  - `loading` - sent when user is finished clapping. `eventData` includes `instanceId` and `amount`.
+
+Window Message Events to [emit from your app](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) to control Clappy Button animations:
   - `success` - triggers success animation
   - `fail` - triggers fail animation
 
-## Examples
+## Framework Implementation Examples
 
 ### React
 
 ```jsx
 
 import { useEffect } from 'react'
-import '@remjx/clappy-button-wc' // NOTE: package name not finalized yet.
+import '@remjx/clappy-button-wc' // TODO: finalize package name & publish
 
 function App() {
 
@@ -86,14 +89,14 @@ function App() {
   
   return (
     <div style={{ marginTop: '75px' }}>
-      <clappy-button instanceid="cb1" currencycode="USD" currencysymbol="$" amountperclap="0.01" theme="light"></clappy-button>
+      <clappy-button instanceid="cb1" currencysymbol="$" amountperclap="0.01"></clappy-button>
     </div>
   );
 }
 
 ```
 
-### Custom Theme
+## Custom Theme
 
 Custom theme can be specified using css:
 
