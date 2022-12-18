@@ -29,6 +29,8 @@ Clappy Button is a [web component](https://developer.mozilla.org/en-US/docs/Web/
   - if `currencysymbol` is specified, it will be used as a prefix in the amount e.g. $1
 - `theme` - `"light"` and `"dark"` are the current built-in themes, or you can create your own (see below)
 - `instanceid` - Unique identifier if there are multiple clappy buttons on the same page e.g. `post-id-1`
+- `claponlymode` - If you only want to use the clap animation & clap event (no counter, loader, or success/fail animations), set this to `"true"`.
+- `amountmax` - amount maximum, typically set equal to the user's current spendable balance.
 
 Example:
 
@@ -39,7 +41,8 @@ Example:
   currencySymbol="$"
   theme="light"
   instanceid="post-id-1"
->
+  amountmax="0.101"
+></clappy-button>
 ```
 
 > Note: attributes are case sensitive and must be defined in all lowercase e.g. `instanceid` is valid, `instanceId` is invalid.
@@ -128,7 +131,6 @@ MIT License. See [`LICENSE.md`](https://github.com/remjx/clappy-button-web-compo
 ## Maintainers
 
 remjx - [twitter](https://twitter.com/remjxd) | [website](https://remjx.com)
-
 
 ## Donations
 

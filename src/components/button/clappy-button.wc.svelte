@@ -32,6 +32,9 @@
 	export let currencysymbol: string;
 	export let theme: string = "light";
 	export let debouncedur = 2.5;
+	export let claponlymode = false;
+
+	// parse strings that could change after initial render
 	let parsedAmountPerClap: number;
 	$: parsedAmountPerClap = Number(amountperclap);
 	let parsedAmountMax: number;
@@ -229,11 +232,13 @@
 			}).to(innerPath, { fill: 'var(--hand)' }, 0);
 		});
 		initializeConfetti();
-		initializeLoaderAnimation();
-		initializeCounterAnimation();
 		initializeHandAnimation();
 		initializeCirclePulseAnimation();
 		startCircleBtnPulseAnimation();
+		if (!claponlymode) {
+			initializeLoaderAnimation();
+			initializeCounterAnimation();
+		}
 	}
 
 	function handAnimation() {
@@ -427,8 +432,10 @@
 	function clapAnimation() {
 		confettiAnimation();
 		handAnimation();
-		tipCountAnimation();
 		stopCircleBtnPulseAnimation();
+		if (!claponlymode) {
+			tipCountAnimation();
+		} 
 	}
 
 	async function clap() {
