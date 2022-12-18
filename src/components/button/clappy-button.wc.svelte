@@ -27,12 +27,15 @@
 
 	export let instanceid: string;
 	export let amountperclap: string;
+	export let amountmax: string;
 	export let currencycode: string;
 	export let currencysymbol: string;
 	export let theme: string = "light";
 	export let debouncedur = 2.5;
 	let parsedAmountPerClap: number;
 	$: parsedAmountPerClap = Number(amountperclap);
+	let parsedAmountMax: number;
+	$: parsedAmountMax = Number(amountmax);
 
 	let amount = 0;
 
@@ -69,7 +72,7 @@
 	let tipBtn: HTMLButtonElement;
 	let btnCircle: HTMLDivElement;
 
-	let canClap: boolean;
+	let isLoadingOrResultAnimationActive: boolean;
 
 	const clapAmountFormatter = () => {
 		const amt = new Intl.NumberFormat(undefined, {
@@ -94,7 +97,7 @@
 		}
 		await tick();
 		initializeAnimation();
-		canClap = true;
+		isLoadingOrResultAnimationActive = false;
 		window.addEventListener('message', handleWindowMessage);
 		return () => {
 			window.removeEventListener("message", handleWindowMessage);
@@ -254,7 +257,7 @@
 	goToIdleAnimation();
 
 	function startLoadingAnimation() {
-		canClap = false;
+		isLoadingOrResultAnimationActive = true;
 		stopCircleBtnPulseAnimation();
 		loaderTL.play();
 		gsap.to(loader, { autoAlpha: 1, overwrite: 'auto', duration: 0.4 });
@@ -330,7 +333,7 @@
 	}
 
 	function goToIdleAnimation() {
-		canClap = true;
+		isLoadingOrResultAnimationActive = false;
 		startCircleBtnPulseAnimation();
 		innerPaths?.forEach((innerPath) => {
 			gsap.timeline({
@@ -429,8 +432,12 @@
 	}
 
 	async function clap() {
-		if (canClap) {
-			amount += parsedAmountPerClap;
+		if (!isLoadingOrResultAnimationActive && parsedAmountPerClap <= parsedAmountMax) {
+			if (amount + parsedAmountPerClap > parsedAmountMax) {
+				amount = parsedAmountMax;
+			} else {
+				amount += parsedAmountPerClap;
+			}
 			window.navigator.vibrate && window.navigator.vibrate(10);
 			clapAnimation();
 			postMessage({
@@ -500,7 +507,7 @@
 			: `${currencysymbol}${amountperclap} per clap`}
 		class="prevent-blue-highlight"
 		bind:this={tipBtn}
-		style={`cursor: ${canClap ? 'pointer' : 'none'};`}
+		style={`cursor: ${!isLoadingOrResultAnimationActive ? 'pointer' : 'none'};`}
 		on:mousedown={handleMouseDown}
 		on:mouseup={resetLoopedClick}
 		on:mouseleave={resetLoopedClick}
