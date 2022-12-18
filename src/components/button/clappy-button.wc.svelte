@@ -30,10 +30,9 @@
 	export let amountmax: string;
 	export let currencycode: string;
 	export let currencysymbol: string;
-	export let theme: string = "light"; 
+	export let theme: string = "light";
 	export let debouncedur = 2.5;
 
-	// parse strings that could change after initial render
 	let parsedAmountPerClap: number;
 	$: parsedAmountPerClap = Number(amountperclap);
 	let parsedAmountMax: number;

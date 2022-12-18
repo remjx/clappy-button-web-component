@@ -4,9 +4,8 @@
 <div align="center">
   <img src="https://clappy-button-web-component.s3.amazonaws.com/github-readme-images/logo-1189px-322px-v1.png" alt="Clappy Button Logo" width="400"></img>
   <p align="center">
-    The Like button evolved.
+    The "Like" button evolved for payments.
   </p>
-  <br />
   <img src="https://clappy-button-web-component.s3.amazonaws.com/github-readme-images/light-mode-1-x-10-cent-demo.gif" alt="Demo" width="96" height="187"></img>
   <!-- <br /> -->
   <!-- <a href="https://github.com/github_username/repo_name">🔗 Interactive Demo</a> -->
