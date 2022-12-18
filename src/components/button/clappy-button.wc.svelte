@@ -30,15 +30,14 @@
 	export let amountmax: string;
 	export let currencycode: string;
 	export let currencysymbol: string;
-	export let theme: string = "light";
+	export let theme: string = "light"; 
 	export let debouncedur = 2.5;
-	export let claponlymode = false;
 
 	// parse strings that could change after initial render
 	let parsedAmountPerClap: number;
 	$: parsedAmountPerClap = Number(amountperclap);
 	let parsedAmountMax: number;
-	$: parsedAmountMax = Number(amountmax);
+	$: parsedAmountMax = amountmax ? Number(amountmax) : Infinity;
 
 	let amount = 0;
 
@@ -235,10 +234,8 @@
 		initializeHandAnimation();
 		initializeCirclePulseAnimation();
 		startCircleBtnPulseAnimation();
-		if (!claponlymode) {
-			initializeLoaderAnimation();
-			initializeCounterAnimation();
-		}
+		initializeLoaderAnimation();
+		initializeCounterAnimation();
 	}
 
 	function handAnimation() {
@@ -433,13 +430,11 @@
 		confettiAnimation();
 		handAnimation();
 		stopCircleBtnPulseAnimation();
-		if (!claponlymode) {
-			tipCountAnimation();
-		} 
+		tipCountAnimation();
 	}
 
 	async function clap() {
-		if (!isLoadingOrResultAnimationActive && parsedAmountPerClap <= parsedAmountMax) {
+		if (amount < parsedAmountMax) {
 			if (amount + parsedAmountPerClap > parsedAmountMax) {
 				amount = parsedAmountMax;
 			} else {
