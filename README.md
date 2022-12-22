@@ -20,26 +20,26 @@ Clappy Button is a [web component](https://developer.mozilla.org/en-US/docs/Web/
 
 ### Parameters
 
-`<clappy-button>` accepts the following parameters as HTML attributes:
+`<clappy-button>` accepts the following HTML attributes as parameters:
 
 - `amountperclap` - Each time user claps, total amount will be incremented by this value e.g. `"0.01"`
-- `currencycode` / `currencysymbol`
-  - if `currencycode` is specified, it will be used as a suffix in the amount e.g. 1 USD
-  - if `currencysymbol` is specified, it will be used as a prefix in the amount e.g. $1
-- `theme` - `"light"` and `"dark"` are the current built-in themes, or you can create your own (see below)
-- `instanceid` - Unique identifier if there are multiple clappy buttons on the same page e.g. `post-id-1`
 - `amountmax` - set equal to the user's current spendable balance.
+- `currencycode` / `currencysymbol`
+  - if `currencycode` is specified, it will be used as a suffix in the counter e.g. 1 USD
+  - if `currencysymbol` is specified, it will be used as a prefix in the counter e.g. $1
+- `theme` - `"light"` and `"dark"` are the current built-in themes. Alternatively, you can [create your own](#custom-theme).
+- `instanceid` - Unique identifier if there are multiple clappy buttons on the same page e.g. `post-id-1`
 
 Example:
 
 ```html
 <clappy-button
   amountperclap="0.01"
+  amountmax="0.10"
   currencycode="USD"
   currencySymbol="$"
   theme="light"
   instanceid="post-id-1"
-  amountmax="0.10"
 ></clappy-button>
 ```
 
@@ -64,12 +64,12 @@ Window Message Events to [emit from your app](https://developer.mozilla.org/en-U
 ```jsx
 
 import { useEffect } from 'react'
-import '@remjx/clappy-button-wc' // TODO: finalize package name & publish
+import 'clappy-button'
 
 function App() {
 
-  async function confirmPayment() {
-    confirm()
+  async function confirmPayment(amount) {
+    confirm(amount)
       .then(result => {
         window.postMessage({ app: 'clappy-button', event: 'success', instanceId: 'cb1' })
       })
@@ -80,7 +80,7 @@ function App() {
 
   function handleWindowMessage(message) {
     if (message.data.app === 'clappy-button' && message.data.event === 'loading' && message.data.instanceId === 'cb1') {
-      confirmPayment()
+      confirmPayment(message.data.eventData.amount)
     }
   };
   useEffect(() => {
@@ -97,6 +97,7 @@ function App() {
 
 ```
 
+<a name="custom-theme"></a>
 ## Custom Theme
 
 Custom theme can be specified using css:
