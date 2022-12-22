@@ -17,9 +17,12 @@ Clappy Button is a [web component](https://developer.mozilla.org/en-US/docs/Web/
 
 ## Installation
 
+Install via [NPM](https://www.npmjs.com/package/clappy-button):
+
 ```js
 npm install clappy-button
 ```
+
 
 ## Usage
 
