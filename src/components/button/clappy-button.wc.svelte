@@ -1,5 +1,9 @@
 <svelte:options tag="clappy-button" />
 
+<script context="module" lang="ts">
+  export type myNewType = {name: string};
+</script>
+
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
 	import gsap from 'gsap';
@@ -7,23 +11,6 @@
 	import HandPath from '../../assets/svg/hand.svelte';
 	import HandNoisePaths from '../../assets/svg/hand-noise.svelte';
 	import Confetti from '../../assets/svg/confetti.svelte';
-
-	type Message = {
-		app: 'clappy-button';
-		instanceId: string;
-	}
-
-	type PostMessage = Message & ({
-		event: 'loading';
-		eventData: { amount: number };
-	} | {
-		event: 'clap';
-		eventData: { amount: number };
-	});
-
-	type ReceiveMessage = Message & {
-		event: 'success' | 'fail'
-	}
 
 	export let instanceid: string;
 	export let amountperclap: string;
