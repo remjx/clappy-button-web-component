@@ -2,7 +2,7 @@
 	"name": "clappy-button",
 	"version": "0.0.1",
 	"description": "The \"Like\" button evolved for payments.",
-	"repository": "https://github.com/remjx/clappy-button-web-component",
+	"repository": "https://github.com/remjx/clappy-button-web-component.git",
 	"license": "MIT",
 	"main": "dist/bundle.js",
 	"browserslist": [
