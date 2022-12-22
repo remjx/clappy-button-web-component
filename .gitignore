@@ -5,3 +5,4 @@ tsconfig.tsbuildinfo
 cypress/videos
 cypress/screenshots
 dist
+dev

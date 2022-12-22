@@ -101,7 +101,7 @@ export default {
 		}),
 		// END HACK
 
-		isDevelopment && visualizer({ filename: 'dist/stats.html' }),
+		isDevelopment && visualizer({ filename: 'dev/stats.html' }),
 	],
 	watch: {
 		clearScreen: false,
