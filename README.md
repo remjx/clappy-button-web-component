@@ -4,7 +4,7 @@
 <div align="center">
   <img src="https://clappy-button-web-component.s3.amazonaws.com/github-readme-images/logo-1189px-322px-v1.png" alt="Clappy Button Logo" width="400"></img>
   <p align="center">
-    The "Like" button evolved for payments.
+    The "Like" button evolved.
   </p>
   <img src="https://clappy-button-web-component.s3.amazonaws.com/github-readme-images/light-mode-1-x-10-cent-demo.gif" alt="Demo" width="96" height="187"></img>
   <!-- <br /> -->
@@ -13,24 +13,23 @@
 
 ## Introduction
 
-Clappy Button is a [web component](https://developer.mozilla.org/en-US/docs/Web/Web_Components) that can be embedded on any web page that supports JavaScript and HTML.
+Clappy Button is a [web component](https://developer.mozilla.org/en-US/docs/Web/Web_Components) for payments that can be embedded on any webpage.
 
+## Installation
 
-## API
+```js
+npm install clappy-button
+```
 
-### Parameters
+## Usage
 
-`<clappy-button>` accepts the following HTML attributes as parameters:
+JS:
 
-- `amountperclap` - Each time user claps, total amount will be incremented by this value e.g. `"0.01"`
-- `amountmax` - set equal to the user's current spendable balance.
-- `currencycode` / `currencysymbol`
-  - if `currencycode` is specified, it will be used as a suffix in the counter e.g. 1 USD
-  - if `currencysymbol` is specified, it will be used as a prefix in the counter e.g. $1
-- `theme` - `"light"` and `"dark"` are the current built-in themes. Alternatively, you can [create your own](#custom-theme).
-- `instanceid` - Unique identifier if there are multiple clappy buttons on the same page e.g. `post-id-1`
+```javascript
+import 'clappy-button'
+```
 
-Example:
+HTML:
 
 ```html
 <clappy-button
@@ -43,19 +42,30 @@ Example:
 ></clappy-button>
 ```
 
-> Note: attributes are case sensitive and must be defined in all lowercase e.g. `instanceid` is valid, `instanceId` is invalid.
+### Parameters
+
+- `amountperclap` - Each time user claps, total amount will be incremented by this value e.g. `"0.01"`
+- `amountmax` - set equal to the user's current spendable balance.
+- `currencycode` / `currencysymbol`
+  - if `currencycode` is specified, it will be used as a suffix in the counter e.g. 1 USD
+  - if `currencysymbol` is specified, it will be used as a prefix in the counter e.g. $1
+- `theme` - `"light"` and `"dark"` are the current built-in themes. Alternatively, you can [create your own](#custom-theme).
+- `instanceid` - Unique identifier if using multiple clappy buttons on the same page e.g. `post-id-1`
+
+> Attributes are case sensitive and must be defined in all lowercase e.g. `instanceid` is valid, `instanceId` is invalid.
 
 ### Events
 
 Communication between your app and Clappy Button is made via [Window message events](https://developer.mozilla.org/en-US/docs/Web/API/Window/message_event).
 
 Window Message Events emitted from Clappy Button to [listen for in your app](https://developer.mozilla.org/en-US/docs/Web/API/Window/message_event):
-  - `clap` - sent with each clap. `eventData` includes with `instanceId` and `amount`. 
-  - `loading` - sent when user is finished clapping. `eventData` includes `instanceId` and `amount`.
+
+- `loading` - Sent when user is finished clapping. Use this event to trigger the payment with the amount. `eventData` includes `instanceId` and `amount`.
 
 Window Message Events to [emit from your app](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) to control Clappy Button animations:
-  - `success` - triggers success animation
-  - `fail` - triggers fail animation
+
+- `success` - Triggers success animation
+- `fail` - Triggers fail animation
 
 ## Framework Implementation Examples
 
@@ -98,6 +108,7 @@ function App() {
 ```
 
 <a name="custom-theme"></a>
+
 ## Custom Theme
 
 Custom theme can be specified using css:
@@ -120,12 +131,11 @@ Custom theme can be specified using css:
 
 ## Contribute
 
-[Feature requests](https://github.com/remjx/clappy-button-web-component/issues/new), [issues](https://github.com/remjx/clappy-button-web-component/issues) and [pull requests](https://github.com/remjx/clappy-button-web-component/pulls) are welcome!
-
+[Feature requests](https://github.com/remjx/clappy-button-web-component/issues/new), [issues](https://github.com/remjx/clappy-button-web-component/issues) and [pull requests](https://github.com/remjx/clappy-button-web-component/pulls) are welcome.
 
 ## License
 
-MIT License. See [`LICENSE.md`](https://github.com/remjx/clappy-button-web-component/blob/main/LICENSE.md) for more information.
+MIT License. See [`LICENSE.md`](https://github.com/remjx/clappy-button-web-component/blob/main/LICENSE.md) for details.
 
 ## Maintainers
 
@@ -135,6 +145,6 @@ remjx - [twitter](https://twitter.com/remjxd) | [website](https://remjx.com)
 
 [coindrop.to/clappy-button](https://coindrop.to/clappy-button) << Also built by remjx :)
 
-## Follow Clappy Button
+## Follow
 
-[Twitter @clappybutton](https://twitter.com/clappybutton)
+[@clappybutton on Twitter](https://twitter.com/clappybutton)
