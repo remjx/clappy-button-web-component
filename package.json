@@ -49,7 +49,7 @@
 		"rollup-plugin-livereload": "^2.0.0",
 		"rollup-plugin-svelte": "^7.1.0",
 		"rollup-plugin-visualizer": "^5.3.0",
-		"sirv-cli": "^1.0.11",
+		"sirv-cli": "^2.0.2",
 		"start-server-and-test": "^1.12.1",
 		"svelte": "^3.53.1",
 		"svelte-check": "^1.0.0",
